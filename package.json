@@ -1,0 +1,68 @@
+{
+  "name": "leo-mobile-design",
+  "version": "1.0.0",
+  "description": "React-based mobile style library",
+  "main": "lib/dist/index.js",
+  "module": "lib/es/index.js",
+  "typings": "lib/dist/index.d.ts",
+  "unpkg": "lib/dist/index.min.js",
+  "scripts": {
+    "eslint": "eslint src --ext .ts,.tsx",
+    "dev": "rollup -w -c --environment FORMAT:esm",
+    "build:ts": "tsc -p ./tsconfig.build.json && cp -rf lib/es lib/dist",
+    "build:esm": "rollup -c --environment FORMAT:esm",
+    "build:umd": "rollup -c --environment FORMAT:umd",
+    "build:min": "rollup -c --environment FORMAT:min",
+    "build": "rimraf lib/* && yarn build:ts && run-p build:esm build:umd build:min"
+  },
+  "keywords": [
+    "react",
+    "mobile",
+    "design",
+    "UI",
+    "rollup"
+  ],
+  "author": "Leo",
+  "license": "ISC",
+  "dependencies": {
+    "core-js": "^3.8.2"
+  },
+  "files": [
+    "lib"
+  ],
+  "peerDependencies": {
+    "react": ">=16.9.0",
+    "react-dom": ">=16.9.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-transform-runtime": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "@babel/preset-typescript": "^7.12.7",
+    "@babel/runtime": "^7.12.5",
+    "@babel/runtime-corejs3": "^7.12.5",
+    "@rollup/plugin-node-resolve": "^11.0.1",
+    "@rollup/plugin-typescript": "^8.1.0",
+    "@types/react": "^17.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.13.0",
+    "@typescript-eslint/parser": "^4.13.0",
+    "autoprefixer": "^10.2.1",
+    "cssnano": "^4.1.10",
+    "eslint": "^7.17.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-react": "^7.22.0",
+    "husky": "^4.3.7",
+    "lodash.merge": "^4.6.2",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.2.4",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.36.1",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-scss": "^2.6.1",
+    "rollup-plugin-typescript2": "^0.29.0",
+    "rollup-plugin-uglify": "^6.0.4",
+    "typescript": "^4.1.3"
+  }
+}

@@ -1,0 +1,17 @@
+$prefix:progress;
+
+.#{$prefix} {
+    &-line {
+        width: 100%;
+        height: 4px;
+        background-color: white;
+        border-radius: 4px;
+
+        &-main {
+            width: 0%;
+            height: 100%;
+            background-color: rgb(0, 140, 255);
+            transition: all 1s;
+        }
+    }
+}

@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./lib/es",
+    "emitDeclarationOnly": true 
+  }, // 只生成声明文件
+  "exclude": ["node_modules", "lib"] // 排除示例、测试以及打包好的文件夹
+}
