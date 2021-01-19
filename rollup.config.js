@@ -4,9 +4,11 @@ const uglify = require('rollup-plugin-uglify').uglify;
 const merge = require('lodash.merge');
 const path = require('path');
 const glob = require('glob');
-const scss = require('rollup-plugin-scss');
+// const scss = require('rollup-plugin-scss');
 const autoprefixer = require('autoprefixer');
-const postcss = require('postcss');
+// const postcss = require('postcss');
+const postcss = require('rollup-plugin-postcss');
+const sass = require('node-sass');
 
 const extensions = ['.js', 'jsx', '.ts', '.tsx'];
 
@@ -32,14 +34,14 @@ function mergeConfig(filePath) {
       output: {
         format: 'umd',
         file: resolve(mainPath),
-        name: 'rem',
+        name: filePath===''?'index':filePath,
       },
     },
     min: {
       output: {
         format: 'umd',
         file: resolve(mainPath.replace(/(.\w+)$/, '.min$1')),
-        name: 'rem',
+        name: filePath===''?'index':filePath,
       },
       plugins: [uglify()],
     },
@@ -48,7 +50,19 @@ function mergeConfig(filePath) {
   const config = jobs[process.env.FORMAT || 'esm'];
   return config;
 }
-
+const processSass = function(context, payload) {
+  return new Promise(( resolve, reject ) => {
+    sass.render({
+      file: context,
+    }, function(err, result) {
+      if ( !err ) {
+        resolve(result);
+      } else {
+        reject(err);
+      }
+    });
+  });
+};
 /**
  * 获取入口文件
  * @param {string[]} projects
@@ -90,8 +104,18 @@ for (const key in entryFile) {
         },
       },
       plugins: [
-        scss({
-          processor: (css) => postcss([autoprefixer({ overrideBrowserslist: 'Edge 18' })]),
+        // scss({
+        //   output: 'bundle.css',
+        //   processor: (css) => postcss([autoprefixer({ overrideBrowserslist: 'Edge 18' })]),
+        // }),
+        postcss({
+          extract: false,
+          minimize: true,
+          extensions: ['css', 'scss'],
+          process: processSass,
+          plugins: [
+            autoprefixer,
+          ],
         }),
         nodeResolve({
           extensions,
