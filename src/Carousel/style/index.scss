@@ -6,9 +6,6 @@ $prefix:leo-carousel;
     overflow: hidden;
     position: relative;
     background-color: transparent;
-    ::placeholder { 
-      color: red; 
-    } 
     &-wrap{
         width: 100%;
         position: absolute;
