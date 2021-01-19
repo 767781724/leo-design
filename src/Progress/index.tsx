@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import './index.scss';
+import './style/index.scss';
 
 export interface IProgressProp {
   percent?: number

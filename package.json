@@ -22,17 +22,21 @@
     "UI",
     "rollup"
   ],
+  "repository":{
+    "type": "git",
+    "url": "https://github.com/767781724/leo-mobile-design.git"
+  },
   "author": "Leo",
   "license": "ISC",
-  "dependencies": {
-    "core-js": "^3.8.2"
-  },
   "files": [
     "lib"
   ],
   "peerDependencies": {
     "react": ">=16.9.0",
     "react-dom": ">=16.9.0"
+  },
+  "dependencies": {
+    "core-js": "^3.8.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",

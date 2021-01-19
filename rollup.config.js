@@ -82,7 +82,13 @@ for (const key in entryFile) {
     const element = entryFile[key];
     const config = merge({
       input: element,
-      output: {},
+      output: {
+        globals: {
+          'react': 'React',
+          'react-dom': 'ReactDOM',
+          'prop-types': 'PropTypes',
+        },
+      },
       plugins: [
         scss({
           processor: (css) => postcss([autoprefixer({ overrideBrowserslist: 'Edge 18' })]),
@@ -98,8 +104,14 @@ for (const key in entryFile) {
         }),
       ],
       external: (id) => {
-        const re=new RegExp(`\.\/${key}`, 'g');
-        return re.test(id);
+        const re=new RegExp('^\.\/\w*', 'g');
+        const keys=['react', 'react-dom', 'prop-types', ...Object.keys(entryFile)];
+        const _id=re.test(id)?id.split('/').pop():id;
+        if (keys.includes(_id)) {
+          return true;
+        } else {
+          return false;
+        }
       },
     }, mergeConfig(key));
     rollupConfig.push(config);
