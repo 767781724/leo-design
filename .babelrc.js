@@ -12,7 +12,7 @@ module.exports = {
       plugins: [
         [
           '@babel/plugin-transform-modules-commonjs',{
-            strict: true
+            strict: false
           }
         ]
       ]
