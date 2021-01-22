@@ -7,3 +7,4 @@ lib
 build
 es
 dist
+yarn-error.log
