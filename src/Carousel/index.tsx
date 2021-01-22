@@ -1,6 +1,4 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-import './style/index.scss';
-
 
 const PREFIX = 'leo-carousel';
 

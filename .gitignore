@@ -3,3 +3,7 @@ package-lock.json
 yarn-lock.json
 yarn.lock
 lib
+.docz/*
+build
+es
+dist

@@ -2,18 +2,22 @@
   "name": "leo-mobile-design",
   "version": "1.1.0-0",
   "description": "React-based mobile style library",
-  "main": "lib/dist/index.js",
-  "module": "lib/es/index.js",
-  "typings": "lib/dist/index.d.ts",
-  "unpkg": "lib/dist/index.min.js",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "typings": "lib/index.d.ts",
+  "unpkg": "dist/index.min.js",
   "scripts": {
     "eslint": "eslint src --ext .ts,.tsx",
-    "dev": "rollup -w -c --environment FORMAT:esm",
-    "build:ts": "tsc -p ./tsconfig.build.json && cp -rf lib/es lib/dist",
-    "build:esm": "rollup -c --environment FORMAT:esm",
-    "build:umd": "rollup -c --environment FORMAT:umd",
-    "build:min": "rollup -c --environment FORMAT:min",
-    "build": "rimraf lib/* && yarn build:ts && run-p build:esm build:umd build:min"
+    "build:ts": "tsc -p ./tsconfig.build.json && cp -rf es lib",
+    "build": "rimraf lib esm dist && yarn build:ts && gulp -f gulpfile.js",
+    "docz:dev": "docz dev",
+    "docz:build": "docz build",
+    "docz:serve": "docz build && docz serve"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run eslint"
+    }
   },
   "keywords": [
     "react",
@@ -29,48 +33,56 @@
   "author": "Leo",
   "license": "ISC",
   "files": [
-    "lib"
+    "dist",
+    "lib",
+    "es"
   ],
   "peerDependencies": {
-    "react": ">=16.9.0",
-    "react-dom": ">=16.9.0"
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0"
   },
-  "dependencies": {
-    "core-js": "^3.8.2"
-  },
+  "dependencies": {},
   "sideEffects": [
-    "lib/*"
+    "dist/*",
+    "esm/**/style/*",
+    "lib/**/style/*",
+    "*.scss"
   ],
   "devDependencies": {
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
+    "@babel/plugin-transform-modules-commonjs": "^7.12.1",
     "@babel/plugin-transform-runtime": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",
     "@babel/preset-typescript": "^7.12.7",
     "@babel/runtime": "^7.12.5",
     "@babel/runtime-corejs3": "^7.12.5",
-    "@rollup/plugin-node-resolve": "^11.0.1",
-    "@rollup/plugin-typescript": "^8.1.0",
     "@types/react": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^4.13.0",
     "@typescript-eslint/parser": "^4.13.0",
-    "autoprefixer": "^10.2.1",
-    "cssnano": "^4.1.10",
+    "core-js": "^3.8.2",
+    "docz": "^2.3.1",
     "eslint": "^7.17.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-react": "^7.22.0",
+    "gatsby-plugin-sass": "^3.0.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-babel": "^8.0.0",
+    "gulp-cssnano": "^2.1.3",
+    "gulp-if": "^3.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^4.1.0",
+    "gulp-uglify": "^3.0.2",
+    "gulp-umd": "^2.0.0",
     "husky": "^4.3.7",
-    "lodash.merge": "^4.6.2",
     "node-sass": "^5.0.0",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.2.4",
     "rimraf": "^3.0.2",
-    "rollup": "^2.36.1",
-    "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-postcss": "^4.0.0",
-    "rollup-plugin-typescript2": "^0.29.0",
-    "rollup-plugin-uglify": "^6.0.4",
+    "through2": "^4.0.2",
+    "tsconfig-paths-webpack-plugin": "^3.3.0",
     "typescript": "^4.1.3"
   }
 }

@@ -1,21 +1,18 @@
+---
+name: 走马灯
+route: /carousel
+---
+
 # Carousel 走马灯
 
-一个垂直走马灯效果
+import { Playground, Props } from 'docz';
+import Carousel from './index.tsx';
 
 ## 代码演示
 
-```tsx
-import React, { FC } from 'react';
-import { Carousel } from 'leo-mobile-design';
- 
-const App: FC = () => {
-  return <div>
-    <Carousel content={[1,2,3,4,5]} />
-  </div>;
-};
- 
-export default App;
-```
+<Playground>
+  <Carousel content={[1,2,3,4,5]} />
+</Playground>
 
 ## API
 

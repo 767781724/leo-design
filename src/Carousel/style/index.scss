@@ -5,7 +5,7 @@ $prefix:leo-carousel;
     height: 30px;
     overflow: hidden;
     position: relative;
-    background-color: transparent;
+    background-color: black;
     &-wrap{
         width: 100%;
         position: absolute;
@@ -20,7 +20,7 @@ $prefix:leo-carousel;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-        color: white;
+        color: rgb(0, 140, 255);
         display: flex;
         align-items: center;
     }
