@@ -113,4 +113,11 @@ function scss2css() {
 }
 const build = gulp.series(compileCJS, compileESM, compileUMD, copyScss, scss2css);
 
+gulp.task('watch', (done)=>{
+  const { styles, scripts }=paths;
+  gulp.watch(styles, gulp.series(copyScss, scss2css));
+  gulp.watch(scripts, gulp.series(compileCJS));
+  done();
+});
+
 exports.default = build;

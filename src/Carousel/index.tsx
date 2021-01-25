@@ -1,12 +1,28 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 
 const PREFIX = 'leo-carousel';
 
 export interface ICarouselProps {
-  content?: any[]
+  /**
+   * @description 内容
+   */
+  content: any[]
+  /**
+   * @description 行内样式
+   */
   InlineStyle?: React.CSSProperties
+  /**
+   * @description 行高
+   * @default 32px
+   */
   height?: string | number
+  /**
+   * @description 速度
+   */
   speed?: number
+  /**
+   * @description 延迟
+   */
   delay?: number
 }
 /**
@@ -14,53 +30,43 @@ export interface ICarouselProps {
  * @param {ICarouselProps}
  * @return {ReactNode}
  */
-const Carousel:FC<ICarouselProps>= (
-    { content, InlineStyle, height = 30, speed = 1, delay = 3 }:ICarouselProps) => {
+const Carousel= (
+    { content, InlineStyle, height, speed = 1, delay = 3 }:ICarouselProps) => {
   const ulRef = useRef<HTMLUListElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
-  const time = useRef<any>();
-  const [data, setdata] = useState<Array<any>>([]);
-  const interTime = useRef<any>();
-  const isEnds = useRef<boolean>(true);
+  const time = useRef<ReturnType<typeof setTimeout>>();
+  const interTime = useRef<ReturnType<typeof setInterval>>();
+  const animation = useRef<boolean>(true);// 动画是否正在播放
   const num = useRef<number>(0);
   const start = () => {
-    const _uls = ulRef.current!;
-    const _liHeight = wrapRef.current?.getBoundingClientRect().height;
-    isEnds.current = true;
+    const contentBox = ulRef.current;
+    if (contentBox === null || content.length <= 1) return;
+    const rowHeight = wrapRef.current?.getBoundingClientRect().height;
+    animation.current = true;
     interTime.current = setInterval(() => {
-      if (isEnds.current && _liHeight) {
-        if (num.current === _uls.children.length - 1) {
+      if (animation.current && rowHeight) {
+        if (num.current === contentBox.children.length - 1) {
           num.current = 1;
         } else {
           num.current++;
         }
-        const _top = num.current * (-_liHeight);
+        const _top = Math.floor(num.current * (-rowHeight));
         ani(_top);
       }
     }, delay * 1000);
   };
-  useEffect(() => {
-    if (content && content.length > 1) {
-      content.push(content[0]);
-      setdata(content);
-      start();
-      return () => {
-        clearTimeout(time.current);
-        clearInterval(interTime.current);
-      };
-    }
-  }, [content]);
-  useEffect(() => {
-    window.onblur = () => {
+  const clearTime= ()=>{
+    if (time.current) {
       clearTimeout(time.current);
+    }
+    if (interTime.current) {
       clearInterval(interTime.current);
-    };
-    window.onfocus = () => {
-      start();
-    };
+    }
+  };
+  useEffect(() => {
+    start();
     return () => {
-      window.onblur = null;
-      window.onfocus = null;
+      clearTime();
     };
   }, []);
   /**
@@ -70,39 +76,42 @@ const Carousel:FC<ICarouselProps>= (
    * @this ani
    */
   function ani(this: any, top: number) {
-    const _uls = ulRef.current;
-    if (!_uls) return;
-    const _top = _uls.offsetTop - speed;
-    const _liHeight = wrapRef.current?.getBoundingClientRect().height;
-    if (_top < top) {
-      clearTimeout(time.current);
-      isEnds.current = true;
-      const _h=_uls.getBoundingClientRect().height - _liHeight!;
-      if (Math.abs(_top) >= _h) {
-        ulRef.current!.style.top = `0px`;
+    const contentBox = ulRef.current;
+    if (contentBox === null) return;
+    const scrollTop = contentBox.offsetTop - speed;
+    if (scrollTop <= top) {
+      console.log(scrollTop, top);
+      if (time.current) {
+        clearTimeout(time.current);
       }
+      if (num.current===contentBox.children.length-1) {
+        contentBox.style.top = `0px`;
+      }
+      animation.current = true;
       return;
     } else {
-      isEnds.current = false;
-      ulRef.current!.style.top = `${_top}px`;
+      animation.current = false;
+      contentBox.style.top = `${scrollTop}px`;
     }
     // time.current = requestAnimationFrame(ani.bind(this, top))
     time.current = setTimeout(ani.bind(this, top), 10);
   }
+  const lis=useMemo(() => {
+    const arr=content.length>1?content.concat(content[0]):content;
+    return arr.map((item, index) => {
+      return (
+        <li
+          style={{ ...InlineStyle, height: height }}
+          className={`${PREFIX}-item`} key={index}>
+          {item}
+        </li>
+      );
+    });
+  }, [content]);
   return (
     <div className={PREFIX} style={{ height: height }} ref={wrapRef}>
       <ul className={`${PREFIX}-wrap`} ref={ulRef}>
-        {
-          data.map((item, index) => {
-            return (
-              <li
-                style={{ ...InlineStyle, height: height }}
-                className={`${PREFIX}-item`} key={index}>
-                {item}
-              </li>
-            );
-          })
-        }
+        {lis}
       </ul>
     </div>
   );

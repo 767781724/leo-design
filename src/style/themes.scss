@@ -1,0 +1,36 @@
+@import './color.scss';
+
+$primary-color: $blue-base;
+$info-color: $primary-color;
+$success-color: $green-base;
+$processing-color: $blue-base;
+$error-color: $red-base;
+$highlight-color: $red-base;
+$warning-color: $gold-base;
+$normal-color: #d9d9d9;
+$white: #fff;
+$black: #000;
+$background-color:#fff;
+
+
+$font-size-base: 14px;
+$border-radius-base: 2px;
+
+//shadow
+$shadow-color: rgba(0, 0, 0, 0.15);
+$box-shadow-base:  0 1px 6px 0px rgba(0, 0, 0, 0.2);
+
+
+// height rules
+$height-base: 32px;
+
+
+//  -----Button-----
+
+
+//  -----Carousel-----
+
+
+//  -----Progress-----
+$progress-height-base: 4px;
+$progress-color: $primary-color;

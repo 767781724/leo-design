@@ -8,3 +8,5 @@ build
 es
 dist
 yarn-error.log
+.storybook
+.umi

@@ -1,6 +1,6 @@
 {
-  "name": "leo-mobile-design",
-  "version": "1.2.0",
+  "name": "leo-design",
+  "version": "1.0.0",
   "description": "React-based mobile style library",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -10,9 +10,9 @@
     "eslint": "eslint src --ext .ts,.tsx",
     "build:ts": "tsc -p ./tsconfig.build.json && cp -rf es lib",
     "build": "rimraf lib esm dist && yarn build:ts && gulp -f gulpfile.js",
-    "docz:dev": "docz dev",
-    "docz:build": "docz build",
-    "docz:serve": "docz build && docz serve"
+    "server": "gulp watch -f gulpfile.js",
+    "start": "npx dumi dev",
+    "docs:build": "dumi build"
   },
   "husky": {
     "hooks": {
@@ -61,12 +61,13 @@
     "@types/react": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^4.13.0",
     "@typescript-eslint/parser": "^4.13.0",
+    "@umijs/plugin-sass": "^1.1.1",
+    "babel-loader": "^8.2.2",
     "core-js": "^3.8.2",
-    "docz": "^2.3.1",
+    "dumi": "^1.1.3",
     "eslint": "^7.17.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-react": "^7.22.0",
-    "gatsby-plugin-sass": "^3.0.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-babel": "^8.0.0",
@@ -77,7 +78,7 @@
     "gulp-uglify": "^3.0.2",
     "gulp-umd": "^2.0.0",
     "husky": "^4.3.7",
-    "node-sass": "^5.0.0",
+    "node-sass": "^4.14.1",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.2.4",
     "rimraf": "^3.0.2",
