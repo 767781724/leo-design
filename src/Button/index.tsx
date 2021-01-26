@@ -1,12 +1,11 @@
 import React, { FC } from 'react';
 
 export interface IButtonProp {
-  children?: React.ReactNode
 }
 
 const PREFIX = 'leo-button';
 
-const Button: FC<IButtonProp> = ({ children }: IButtonProp) => {
+const Button: FC<IButtonProp> = ({ children }) => {
   return (
     <div className={PREFIX}>
       {children}

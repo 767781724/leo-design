@@ -45,7 +45,8 @@
           "ignoreUrls": true,
           "ignorePattern": "goog.(module|require)"
       }
-    ]
+    ],
+    "react/prop-types": "off"
   },
   "settings": {
     "react":{
