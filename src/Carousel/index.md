@@ -1,4 +1,4 @@
-# Carousel 走马灯
+# Carousel
 
 竖行走马灯
 
