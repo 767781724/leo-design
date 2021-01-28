@@ -12,21 +12,32 @@ $white: #fff;
 $black: #000;
 $background-color:#fff;
 
+$line-height-base: 1.5;
 
 $font-size-base: 14px;
-$border-radius-base: 2px;
+$font-weight-base: 400;
 
 //shadow
 $shadow-color: rgba(0, 0, 0, 0.15);
 $box-shadow-base:  0 1px 6px 0px rgba(0, 0, 0, 0.2);
 
+//border
+$border-base:1px solid $normal-color;
+$border-radius-base: 2px;
 
 // height rules
 $height-base: 32px;
 
+// vertical paddings
+$padding-lg: 24px;
+$padding-md: 16px;
+$padding-sm: 12px;
+$padding-xs: 8px;
+$padding-xss: 4px;
 
 //  -----Button-----
-
+$btn-padding-base: $padding-xss $padding-md;
+$btn-icon-width: 20px;
 
 //  -----Carousel-----
 

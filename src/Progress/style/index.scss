@@ -6,7 +6,7 @@ $prefix:leo-progress;
     &-line {
         width: 100%;
         height: $progress-height-base;
-        background-color: white;
+        background-color: $white;
         border-radius: $border-radius-base;
         box-shadow: $box-shadow-base;
         overflow: hidden;

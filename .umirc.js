@@ -10,4 +10,7 @@ export default defineConfig({
   favicon:'/assets/logo.jpg',
   logo:'/assets/logo.jpg',
   outputPath: 'docs-dist',
+  history: {
+    type: 'hash'
+  }
 })

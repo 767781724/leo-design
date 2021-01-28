@@ -1,7 +1,75 @@
 @import '../../style/themes.scss';
 
-$prefix: leo-button;
+$prefix: leo-btn;
 
-.#{$prefix}{
+@mixin btn-color($color, $hover-color, $hover-bg:$white, $hover-bc:$hover-color) {
+  color: $color;
 
+  &:hover,
+  &:focus {
+    color: $hover-color;
+    background: $hover-bg;
+    border-color: $hover-bc;
+  }
+}
+
+.#{$prefix} {
+  @include btn-color($black, $primary-color);
+  font-size: $font-size-base;
+  font-weight: $font-weight-base;
+  cursor: pointer;
+  user-select: none;
+  height: $height-base;
+  border-radius: $border-radius-base;
+  padding: $btn-padding-base;
+  transition: all .3s ease-in-out;
+  box-sizing: border-box;
+  background-color: $white;
+  border: $border-base;
+  line-height: $line-height-base;
+
+  &[disabled] {
+    cursor: not-allowed;
+  }
+
+  >span {
+    display: inline-block;
+  }
+
+  &-primary {
+    @include btn-color($white, $white, $primary-color, $primary-color);
+    background: $primary-color;
+    border-color: $primary-color;
+
+    &:not([disabled]) {
+      &:active {
+        color: $white;
+        background: $geekblue-base;
+        border-color: $geekblue-base;
+      }
+    }
+
+  }
+
+  &-link {
+    @include btn-color($primary-color, $primary-color, transparent, none);
+    border: transparent;
+    background: 0 0;
+
+    &:active {
+      color: $geekblue-base;
+    }
+  }
+
+  &-block {
+    display: block;
+    width: 100%;
+  }
+
+  &-loading-icon {
+    display: inline-block;
+    width: $btn-icon-width;
+    height: $btn-icon-width;
+    text-align: left;
+  }
 }
