@@ -2,13 +2,13 @@ import { defineConfig } from 'dumi';
 
 export default defineConfig({
   mode: 'doc',
-  title: 'leo-design',
+  title: 'Leo Design',
   sass: {
     implementation: require('node-sass'),
   },
   publicPath:'./',
-  favicon:'/assets/logo.jpg',
-  logo:'/assets/logo.jpg',
+  favicon:'/assets/favicon.ico',
+  logo:'/assets/logo.png',
   outputPath: 'docs-dist',
   history: {
     type: 'hash'
