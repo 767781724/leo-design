@@ -1,4 +1,10 @@
-# Progress
+---
+title: Progress 进度条
+group:
+  title: Progress 进度条
+---
+
+## Progress
 
 线型进度条
 
@@ -7,11 +13,10 @@
 ```tsx
 import React, { FC } from 'react';
 import { Progress } from 'leo-design';
-import './style/index.ts';
  
 const App: FC = () => {
   return <div>
-    <Progress  percent={50} />
+    <Progress  percent={50} height={8} />
   </div>
 };
  

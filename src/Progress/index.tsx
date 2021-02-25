@@ -27,9 +27,7 @@ const Progress: FC<IProgressProp> = ({
     <div style={{ height: height }} className={`${PREFIX}-line`}>
       <div
         className={`${PREFIX}-line-main`}
-        style={{
-          width: `${percent}%`,
-          backgroundColor: color }}></div>
+        style={{ width: `${percent}%`, backgroundColor: color }}></div>
     </div>
   );
 };
