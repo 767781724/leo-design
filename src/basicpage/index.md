@@ -17,7 +17,7 @@ import { Basicpage } from 'leo-design';
 const App: FC = () => {
   return (
     <div style={{height: '100vh'}}>
-      <Basicpage inobounce={false} >
+      <Basicpage inobounce={false} className={'demo'} >
         <p>
         滚动区域<br/>滚动区域<br/>滚动区域<br/>滚动区域<br/>滚动区域<br/>滚动区域<br/>滚动区域<br/>滚动区域<br/>滚动区域<br/>滚动区域<br/>滚动区域<br/>滚动区域<br/>滚动区域<br/>滚动区域<br/>滚动区域<br/>
         </p>

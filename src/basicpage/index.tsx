@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { enable } from '../_util/inobounce';
 import { isIos } from '../_util/device';
+import classNames from 'classnames';
 
 export interface IBasicpageProp {
   /**
@@ -12,11 +13,12 @@ export interface IBasicpageProp {
    * @description 样式
    */
   style?: React.CSSProperties
+  className?: string
 }
 
 const PREFIX='leo-basic';
 
-const Basicpage:FC<IBasicpageProp> = ({ children, inobounce, style }) => {
+const Basicpage:FC<IBasicpageProp> = ({ children, inobounce, style, className }) => {
   useEffect(() => {
     if (inobounce === false && isIos()) {
       enable();
@@ -24,7 +26,7 @@ const Basicpage:FC<IBasicpageProp> = ({ children, inobounce, style }) => {
   }, [inobounce]);
 
   return (
-    <div className={PREFIX} style={style}>
+    <div className={classNames(PREFIX, className)} style={style}>
       {children}
     </div>
   );
