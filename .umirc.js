@@ -19,6 +19,7 @@ export default defineConfig({
       {
         libraryName: 'leo-design',
         libraryDirectory: "lib",
+        // camel2DashComponentName: false,
         customStyleName: name => {
           return `./style`;
         },

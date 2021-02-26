@@ -8,6 +8,7 @@ const gulpUmd = require('gulp-umd');
 const gulpif = require('gulp-if');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
+// const gulpIgnore = require('gulp-ignore');
 
 const paths = {
   dest: {
@@ -16,7 +17,7 @@ const paths = {
     dist: 'dist', // umd文件存放的目录名
   },
   styles: 'src/**/*.scss', // 样式文件路径
-  scripts: ['src/**/*.{ts,tsx}'], // 脚本文件路径
+  scripts: ['src/**/*.{ts,tsx}', '!src/**/demo/**'], // 脚本文件路径
 };
 /**
  * 编译脚本文件
@@ -30,6 +31,7 @@ function compileScripts(babelEnv, destDir) {
   return gulp
       .src(scripts)
       .pipe(babel()) // 使用gulp-babel处理
+      // .pipe(gulpIgnore.exclude('./src/local/demo/demo.tsx'))
       .pipe(gulpif(babelEnv==='umd', gulpUmd()))
       .pipe(
           through2.obj(function Z(file, encoding, next) {
