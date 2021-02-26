@@ -4,5 +4,6 @@
     "outDir": "./es",
     "emitDeclarationOnly": true 
   }, // 只生成声明文件
-  "exclude": ["node_modules", "dist", "es", "lib"] // 排除示例、测试以及打包好的文件夹
+  "include": ["./src"],
+  "exclude": ["node_modules", "dist", "es", "lib",  "./src/**/demo/*.tsx"] // 排除示例、测试以及打包好的文件夹
 }

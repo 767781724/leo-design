@@ -1,4 +1,10 @@
-# Button
+---
+title: Button 按钮
+group:
+  title: Button 按钮
+---
+
+## Button
 
 静态按钮
 
@@ -11,22 +17,13 @@
 
 import React, { FC } from 'react';
 import { Button } from 'leo-design';
-import './style/index.ts';
  
 const App: FC = () => {
   return <div>
-    <span style={{marginRight:15}}>
-      <Button>default</Button>
-    </span>
-    <span style={{marginRight:15}}>
-      <Button type="primary">primary</Button>
-    </span>
-    <span style={{marginRight:15}}>
-      <Button  disabled type="primary" loading>primary</Button>
-    </span>
-    <span style={{marginRight:15}}>
-      <Button type="link">primary</Button>
-    </span>
+      <Button block={true} style={{marginBottom:10}}>default</Button>
+      <Button block={true} style={{marginBottom:10}} type="primary">primary</Button>
+      <Button block={true} style={{marginBottom:10}} disabled type="primary" loading>primary</Button>
+      <Button block={true} style={{marginBottom:10}} type="link">primary</Button>
   </div>
 };
  

@@ -7,10 +7,23 @@ export default defineConfig({
     implementation: require('node-sass'),
   },
   publicPath:'./',
-  favicon:'/assets/favicon.ico',
-  logo:'/assets/logo.png',
+  favicon:'./assets/favicon.ico',
+  logo:'./assets/logo.png',
   outputPath: 'docs-dist',
   history: {
     type: 'hash'
-  }
+  },
+  extraBabelPlugins: [
+    [
+      'import',
+      {
+        libraryName: 'leo-design',
+        libraryDirectory: "lib",
+        // camel2DashComponentName: false,
+        customStyleName: name => {
+          return `./style`;
+        },
+      }
+    ],
+  ]
 })

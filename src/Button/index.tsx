@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import classNames from 'classnames';
-import LoadingIcon from './LoadingIcon';
+import LoadingIcon from './loadingIcon';
 
 export interface IButtonProp {
   /**
@@ -28,12 +28,13 @@ export interface IButtonProp {
    * @description class
    */
   className?: string
+  style?: React.CSSProperties
 }
 
 const PREFIX = 'leo-btn';
 
 const Button: FC<IButtonProp> = (props) => {
-  const { children, type, loading, className, block, disabled, onClick }=props;
+  const { children, type, loading, className, block, disabled, onClick, style }=props;
   const classes = classNames(
       PREFIX,
       {
@@ -51,7 +52,7 @@ const Button: FC<IButtonProp> = (props) => {
     }
   };
   return (
-    <button onClick={handleClick} disabled={disabled} className={classes}>
+    <button onClick={handleClick} disabled={disabled} className={classes} style={style}>
       <LoadingIcon loading={loading} prefix={PREFIX}/>
       <span>{children}</span>
     </button>
