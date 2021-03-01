@@ -26,7 +26,6 @@ export interface IDrawerProp {
   visible?: boolean,
   /**
    * @description 弹窗高度
-   * @default 300
    */
   contentHeight?: number,
   /**
@@ -62,6 +61,7 @@ const Drawer: FC<IDrawerProp> = ({ header, flex, children, mask, visible,
   const maskRef = useRef<HTMLDivElement>(null);
   const clientHeight = useRef<number>(0);
   const [enter, setEnter] = useState(false);
+  const [show, setShow] = useState(false);
   // const [isTop, setIsTop] = useState(false);
   const drag = useRef<boolean>(false);
   let startY = 0;
@@ -95,8 +95,19 @@ const Drawer: FC<IDrawerProp> = ({ header, flex, children, mask, visible,
     };
   }, [enter]);
   useEffect(() => {
-    if (maskRef && maskRef.current) {
+    if (show && maskRef && maskRef.current) {
       maskRef.current.style.height = document.documentElement.clientHeight + 'px';
+    }
+  }, [show]);
+  useEffect(() => {
+    if (visible === false) {
+      if (enter === true) {
+        setEnter(false);
+      } else {
+        setShow(false);
+      }
+    } else if (visible === true) {
+      setShow(true);
     }
   }, [visible]);
   const initView = () => {
@@ -167,7 +178,7 @@ const Drawer: FC<IDrawerProp> = ({ header, flex, children, mask, visible,
   const onMaskClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
     if (maskClosable && onClose) {
-      setEnter(false);
+      onClose();
     }
   };
 
@@ -182,7 +193,7 @@ const Drawer: FC<IDrawerProp> = ({ header, flex, children, mask, visible,
 
   return (
     <CSSTransition
-      in={visible}
+      in={show}
       classNames={PREFIX}
       timeout={100}
       unmountOnExit
@@ -197,7 +208,7 @@ const Drawer: FC<IDrawerProp> = ({ header, flex, children, mask, visible,
           timeout={350}
           unmountOnExit
           onExited={()=>{
-            onClose&&onClose();
+            setShow(false);
           }}
         >
           <div className={`${PREFIX}-body`} ref={viewRef}>

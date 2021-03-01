@@ -27,11 +27,16 @@ const App: FC = () => {
         flex={true}
         visible={visible}
         mask={true}
+        contentHeight={200}
         onClose={()=>{setVisible(false)}}
       >
+      <Button onClick={()=>setVisible(false)}>取消</Button>
+      <p>
       123<br/>
       123<br/>
       123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>
+      </p>
+      
       </Drawer>
     </div>
   )

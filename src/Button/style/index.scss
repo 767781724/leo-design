@@ -14,7 +14,7 @@ $prefix: leo-btn;
 }
 
 .#{$prefix} {
-  @include btn-color($black, $primary-color);
+ 
   font-size: $font-size-base;
   font-weight: $font-weight-base;
   cursor: pointer;
@@ -35,12 +35,15 @@ $prefix: leo-btn;
   >span {
     display: inline-block;
   }
-
+  &-default {
+    @include btn-color($black, $primary-color);
+  }
   &-primary {
-    @include btn-color($white, $white, $primary-color, $primary-color);
+    // @include btn-color($white, $white, $primary-color, $primary-color);
+    color: $white;
     background: $primary-color;
     border-color: $primary-color;
-    border-color: transparent
+    border-color: transparent;
     // &:not([disabled]) {
     //   &:active {
     //     color: $white;
