@@ -24,7 +24,7 @@ const App: FC = () => {
     <Spin />
     <h1 style={{fontSize:14}}>自定义文案</h1>
     <Spin tip={'加载中…'}>
-    <p>Hello world!</p>
+    <p style={{height:100}}>Hello world!</p>
     </Spin>
   </div>
 };

@@ -11,7 +11,7 @@ $normal-color: #d9d9d9;
 $white: #fff;
 $black: #000;
 $background-color:#fff;
-$mask-color: rgba(0,0,0,0.5);
+$mask-color: rgba(0,0,0,0.7);
 
 $line-height-base: 1.5;
 
@@ -26,6 +26,9 @@ $zindex-drawer-body: 102;
 $zindex-modal: 200;
 $zindex-modal-mask: 201;
 $zindex-modal-body: 202;
+$zindex-spin: 200;
+$zindex-spin-mask: 201;
+$zindex-spin-icon: 202;
 
 //shadow
 $shadow-color: rgba(0, 0, 0, 0.15);
@@ -59,7 +62,7 @@ $progress-color: $primary-color;
 //  -----Carousel-----
 $spin-padding-base: 10px 15px;
 $spin-width-base: 100px;
-$spin-height-base: 100px;
+$spin-height-base: 60px;
 
 
 //  -----Message-----

@@ -20,12 +20,14 @@ export interface ISpinProp {
   /**
    * @description 自定义指示符
    */
+  mask?: boolean
   indicator?: ReactNode
+  maskStyle?: React.CSSProperties
 }
 
 const PREFIX = 'leo-spin';
 
-const Spin: FC<ISpinProp> = ({ spinning, children, tip, isCard, indicator }) => {
+const Spin: FC<ISpinProp> = ({ spinning, children, tip, mask, isCard, indicator, maskStyle }) => {
   const iconView = () => {
     const defaultIcon = <span> <LoadingOutlined /> </span>;
     return (
@@ -40,6 +42,7 @@ const Spin: FC<ISpinProp> = ({ spinning, children, tip, isCard, indicator }) => 
 
   return (
     <div className={classNames(PREFIX, { [`${PREFIX}-scroll`]: spinning })}>
+      {spinning && mask && <div className={`${PREFIX}-mask`} style={maskStyle}></div>}
       {spinning && iconView()}
       <div className={`${PREFIX}-content`}>
         {children}
@@ -51,6 +54,7 @@ const Spin: FC<ISpinProp> = ({ spinning, children, tip, isCard, indicator }) => 
 Spin.defaultProps = {
   spinning: true,
   isCard: false,
+  mask: false,
 };
 
 export default Spin;
