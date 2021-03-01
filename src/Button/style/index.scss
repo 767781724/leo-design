@@ -40,14 +40,14 @@ $prefix: leo-btn;
     @include btn-color($white, $white, $primary-color, $primary-color);
     background: $primary-color;
     border-color: $primary-color;
-
-    &:not([disabled]) {
-      &:active {
-        color: $white;
-        background: $geekblue-base;
-        border-color: $geekblue-base;
-      }
-    }
+    border-color: transparent
+    // &:not([disabled]) {
+    //   &:active {
+    //     color: $white;
+    //     background: $geekblue-base;
+    //     border-color: $geekblue-base;
+    //   }
+    // }
 
   }
 

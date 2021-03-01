@@ -1,0 +1,37 @@
+@import '../../style/themes.scss';
+
+$prefix:leo-tooltip;
+
+.#{$prefix} {
+  position: relative;
+  display: inline-block;
+  &-prompt {
+    position: relative;
+    position: absolute;
+    box-sizing: border-box;
+    color: white;
+    font-size: $tooltip-font-size;
+
+    &-body {
+      background-color: $tooltip-color-base;
+      padding: 5px;
+      box-sizing: border-box;
+      border-radius: $border-radius-base;
+    }
+
+    &-arrow {
+      position: absolute;
+      display: block;
+      border: 5px solid transparent;
+      border-top: 5px solid $tooltip-color-base;
+      width: 0;
+      height: 0px;
+      bottom: -10px;
+      left: 40%;
+    }
+  }
+  &-content{
+    display: inline-block;
+  }
+
+}

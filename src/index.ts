@@ -7,3 +7,4 @@ export { default as Message } from './message';
 export { default as Drawer } from './drawer';
 export { default as Modal } from './modal';
 export { default as LocaleProvider } from './locale-provider';
+export { default as Tooltip } from './tooltip';
