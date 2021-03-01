@@ -38,12 +38,12 @@ $prefix: leo-spin;
       left: 50%;
       top: 50%;
       margin-left:  -$spin-width-base/2;
-      margin-top: -$spin-height-base/2;
-      // margin:  -$spin-width-base/2 -$spin-height-base/2;
+      // margin-top: -$spin-height-base/2;
+      transform: translateY(-50%);
       display: inline-block;
       box-sizing: border-box;
       width: $spin-width-base;
-      max-height: $spin-height-base;
+      // max-height: $spin-height-base;
       padding: $spin-padding-base;
       text-align: center;
       >span{
