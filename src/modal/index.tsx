@@ -16,9 +16,11 @@ export interface IModalProp {
    * @default true
    */
   maskClosable?: boolean
+  style?: React.CSSProperties
+  maskStyle?: React.CSSProperties
 }
 const PREFIX = 'leo-modal';
-const Modal:FC<IModalProp> = ({ children, visible, onClose, maskClosable }) => {
+const Modal:FC<IModalProp> = ({ children, visible, onClose, maskClosable, style, maskStyle }) => {
   const maskOnClose=()=>{
     if (maskClosable) {
       onClose&&onClose();
@@ -30,8 +32,8 @@ const Modal:FC<IModalProp> = ({ children, visible, onClose, maskClosable }) => {
       classNames={PREFIX}
       timeout={100}
       unmountOnExit >
-      <div className={PREFIX}>
-        <div className={`${PREFIX}-mask`} onClick={maskOnClose}></div>
+      <div className={PREFIX} style={style}>
+        <div className={`${PREFIX}-mask`} style={maskStyle} onClick={maskOnClose}></div>
         <div className={`${PREFIX}-body`}>
           {children}
         </div>
