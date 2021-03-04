@@ -46,9 +46,14 @@ const App = () => {
   const _queryCallback = (oldData: any, newData: any) => {
     return { newData: [...oldData, ...newData.data.list], more: oldData.length >100?false:true };
   };
+  const _header = (e) =>{
+    if(e.length===0) return null;
+    return <p style={{ height: 50, background: 'blue' }}>头部</p>
+  }
   return (
     <div style={{ height: 400 }}>
       <ListPage
+        header={_header}
         item={_item}
         query={_query}
         params={_params}

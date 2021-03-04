@@ -3,6 +3,10 @@ import LoadingOutlined from '@ant-design/icons/LoadingOutlined';
 
 export interface IListPageProp {
   /**
+   * @description 头部视图
+   */
+  header?: (e:any)=> React.ReactNode | null
+  /**
    * @description 底部加载动画
    */
   footer?: React.ReactNode
@@ -37,9 +41,10 @@ export interface IListPageQueryback {
 }
 const PREFIX = 'leo-listpage';
 
-const ListPage:FC<IListPageProp> = ({ footer, empty, noMore,
+const ListPage:FC<IListPageProp> = ({ header, footer, empty, noMore,
   params, queryCallback, query, item }) => {
   const wrap = useRef<HTMLDivElement>(null);
+  const head = useRef<HTMLDivElement>(null);
   const body = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
@@ -52,16 +57,19 @@ const ListPage:FC<IListPageProp> = ({ footer, empty, noMore,
     if (hasMore && wrap.current) {
       wrap.current.onscroll = onScroll;
     }
+    if (head.current && body.current && wrap. current) {
+      const headHeight = Math.floor(head.current.getBoundingClientRect().height);
+      wrap.current.style.top=`${headHeight}px`;
+    }
     return () => {
       if (wrap.current) {
         wrap.current!.onscroll = null;
       }
     };
-  }, [hasMore, data, loading]);
-
+  }, [hasMore, data, loading, header]);
   const getData = () => {
     const _param = params(data, page.current);
-    setLoading(true);
+    setLoading(true); console.log(_param);
     query(_param).then((res) => {
       const { newData, more } = queryCallback(data, res);
       setData(newData);
@@ -94,17 +102,26 @@ const ListPage:FC<IListPageProp> = ({ footer, empty, noMore,
     }
   };
   return (
-    <div className={PREFIX} ref={wrap} >
-      <div className={`${PREFIX}-body`} ref={body}>
-        {data?.map((e, index)=>item(e, index))}
+    <div className={PREFIX} >
+      {/* {header&&<div ref={head}>{header}</div>} */}
+      {
+        !!header &&
+        <div ref={head} className={`${PREFIX}-header`}>
+          {header(data)}
+        </div>
+      }
+      <div className={`${PREFIX}-body`} ref={wrap}>
+        <div className={`${PREFIX}-body-content`} ref={body}>
+          {data?.map((e, index)=>item(e, index))}
+        </div>
+        { _footer() }
       </div>
-      { _footer() }
     </div>
   );
 };
 const FooterView = () => {
   return (
-    <div className={`${PREFIX}-footer`}>
+    <div className={`${PREFIX}-footer-default`}>
       <span><LoadingOutlined/></span>
       <span>Load more</span>
     </div>
@@ -112,14 +129,14 @@ const FooterView = () => {
 };
 const NoMoreView = () => {
   return (
-    <div className={`${PREFIX}-noMore`}>
+    <div className={`${PREFIX}-noMore-default`}>
       <span>No More</span>
     </div>
   );
 };
 const EmptyView = () => {
   return (
-    <div className={`${PREFIX}-empty`}>
+    <div className={`${PREFIX}-empty-default`}>
       <span>No Data</span>
     </div>
   );

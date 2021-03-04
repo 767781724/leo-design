@@ -7,13 +7,44 @@ $prefix: leo-listpage;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  overflow-y: scroll;
-
+  position: relative;
+  &-header{
+    width: 100%;
+    
+  }
   &-body {
     width: 100%;
     overflow: hidden;
+    overflow-y: scroll;
+    position: absolute;
+    top: 0;
+    bottom: 0;
   }
-  &-empty {
+  &-footer{
+    &-default{
+      width: 100%;
+      height: 40px;
+      line-height: 40px;
+      position: relative;
+      text-align: center;
+
+      >span {
+        &:first-child {
+          width: 20px;
+          height: 20px;
+          display: inline-block;
+          margin-right: 10px;
+        }
+
+        &:last-child {
+          color: #666;
+          font-size: 14px;
+
+        }
+      }
+    }
+  }
+  &-empty-default {
     width: 100%;
     height: 100%;
     position: relative;
@@ -25,7 +56,7 @@ $prefix: leo-listpage;
     justify-content: center;
   }
 
-  &-noMore {
+  &-noMore-default {
     width: 100%;
     height: 40px;
     line-height: 40px;
@@ -33,27 +64,5 @@ $prefix: leo-listpage;
     text-align: center;
     color: #666;
     font-size: 14px;
-  }
-  &-footer {
-    width: 100%;
-    height: 40px;
-    line-height: 40px;
-    position: relative;
-    text-align: center;
-
-    >span {
-      &:first-child {
-        width: 20px;
-        height: 20px;
-        display: inline-block;
-        margin-right: 10px;
-      }
-
-      &:last-child {
-        color: #666;
-        font-size: 14px;
-
-      }
-    }
   }
 }
