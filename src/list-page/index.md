@@ -17,6 +17,7 @@ group:
 
 import React, { FC, useRef } from 'react';
 import { ListPage, Button } from 'leo-design';
+import { IListPageState } from 'leo-design/lib/list-page';
  
 type IDemo={
   name:string
@@ -25,7 +26,7 @@ let sub = 40;
 let start = 0;
 const App = () => {
   const ref = useRef<IListPageState>(null);
-  const _query = (param) =>{
+  const _query = (param: any) =>{
     const { page } =param;
     return new Promise((resolve)=>{
       setTimeout(()=>{

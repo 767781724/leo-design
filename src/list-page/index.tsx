@@ -60,6 +60,7 @@ function IListPage(props:IListPageProp, ref: React.ForwardedRef<IListPageState>)
   const [hasMore, setHasMore] = useState(true);
   const [data, setData] = useState<Array<any>>([]);
   const page = useRef(1);
+  const loadCache = useRef(false);
   useImperativeHandle(ref,
       () => ({
         resetList: () =>{
@@ -91,6 +92,7 @@ function IListPage(props:IListPageProp, ref: React.ForwardedRef<IListPageState>)
     };
   }, [hasMore, data, loading, header]);
   const getData = (reset:boolean = false) => {
+    loadCache.current= true;
     const _param = params(data, page.current);
     setLoading(true);
     query(_param).then((res) => {
@@ -104,14 +106,17 @@ function IListPage(props:IListPageProp, ref: React.ForwardedRef<IListPageState>)
       setData(newData);
     }).catch((err)=>{
       Message.error(err.msg);
-    }).finally(() => setLoading(false));
+    }).finally(() => {
+      setLoading(false);
+      loadCache.current= false;
+    });
   };
   const onScroll = () => {
     if (body.current && wrap.current) {
       const bodyHeight = Math.floor(body.current.getBoundingClientRect().height);
       const wrapHeight = Math.floor(wrap.current.getBoundingClientRect().height);
       const scrollTop = Math.floor(wrap.current.scrollTop);
-      if (bodyHeight <= (scrollTop + wrapHeight) && hasMore && !loading) {
+      if (bodyHeight <= (scrollTop + wrapHeight) && hasMore && loadCache.current===false) {
         getData();
       }
     }
