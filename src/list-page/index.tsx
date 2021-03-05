@@ -1,6 +1,11 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import LoadingOutlined from '@ant-design/icons/LoadingOutlined';
+import { Message } from '../index';
 
+
+export interface IListPageState {
+  resetList: () => void
+}
 export interface IListPageProp {
   /**
    * @description 头部视图
@@ -40,9 +45,14 @@ export interface IListPageQueryback {
   more: boolean
 }
 const PREFIX = 'leo-listpage';
-
-const ListPage:FC<IListPageProp> = ({ header, footer, empty, noMore,
-  params, queryCallback, query, item }) => {
+/**
+ * 分页
+ * @param props
+ * @param ref
+ * @return {React.ReactNode}
+ */
+function IListPage(props:IListPageProp, ref: React.ForwardedRef<IListPageState>) {
+  const { header, footer, empty, noMore, params, queryCallback, query, item } =props;
   const wrap = useRef<HTMLDivElement>(null);
   const head = useRef<HTMLDivElement>(null);
   const body = useRef<HTMLDivElement>(null);
@@ -50,6 +60,19 @@ const ListPage:FC<IListPageProp> = ({ header, footer, empty, noMore,
   const [hasMore, setHasMore] = useState(true);
   const [data, setData] = useState<Array<any>>([]);
   const page = useRef(1);
+  useImperativeHandle(ref,
+      () => ({
+        resetList: () =>{
+          page.current=1;
+          getData(true);
+          setHasMore(true);
+          if (wrap.current) {
+            wrap.current.scrollTop=0;
+          }
+        },
+      }),
+      [],
+  );
   useEffect(() => {
     getData();
   }, []);
@@ -67,17 +90,20 @@ const ListPage:FC<IListPageProp> = ({ header, footer, empty, noMore,
       }
     };
   }, [hasMore, data, loading, header]);
-  const getData = () => {
+  const getData = (reset:boolean = false) => {
     const _param = params(data, page.current);
-    setLoading(true); console.log(_param);
+    setLoading(true);
     query(_param).then((res) => {
-      const { newData, more } = queryCallback(data, res);
-      setData(newData);
+      const { newData, more } = queryCallback(reset?[]:data, res);
       if (more) {
         page.current++;
+        if (newData.length === data.length) setHasMore(false);
       } else {
         setHasMore(false);
       }
+      setData(newData);
+    }).catch((err)=>{
+      Message.error(err.msg);
     }).finally(() => setLoading(false));
   };
   const onScroll = () => {
@@ -103,7 +129,6 @@ const ListPage:FC<IListPageProp> = ({ header, footer, empty, noMore,
   };
   return (
     <div className={PREFIX} >
-      {/* {header&&<div ref={head}>{header}</div>} */}
       {
         !!header &&
         <div ref={head} className={`${PREFIX}-header`}>
@@ -141,7 +166,5 @@ const EmptyView = () => {
     </div>
   );
 };
-
+const ListPage=forwardRef<IListPageState, IListPageProp>(IListPage);
 export default ListPage;
-
-

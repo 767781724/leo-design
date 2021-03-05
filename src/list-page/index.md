@@ -16,7 +16,7 @@ group:
  */
 
 import React, { FC, useRef } from 'react';
-import { ListPage } from 'leo-design';
+import { ListPage, Button } from 'leo-design';
  
 type IDemo={
   name:string
@@ -24,17 +24,26 @@ type IDemo={
 let sub = 40;
 let start = 0;
 const App = () => {
-  const _query = () =>{
+  const ref = useRef<IListPageState>(null);
+  const _query = (param) =>{
+    const { page } =param;console.log(page)
     return new Promise((resolve)=>{
       setTimeout(()=>{
+        if (page>3) {
+          resolve({ data: { list: [] } });
+        }
+        if (page === 1) {
+          sub = 40;
+          start = 0;
+        }
         const list = [];
-        for (let i = start; i < sub; i++){
-          list.push({name: i});
+        for (let i = start; i < sub; i++) {
+          list.push({ name: i });
         }
         sub = sub + 40;
-        start = start +40;
+        start = start + 40;
         resolve({ data: { list } });
-      }, 5000);
+      }, 500);
     });
   };
   const _item = (e:IDemo, index:number) => {
@@ -46,20 +55,24 @@ const App = () => {
   const _queryCallback = (oldData: any, newData: any) => {
     return { newData: [...oldData, ...newData.data.list], more: oldData.length >100?false:true };
   };
-  const _header = (e) =>{
-    if(e.length===0) return null;
-    return <p style={{ height: 50, background: 'blue' }}>头部</p>
-  }
+  const _header = (e:any) =>{
+    if (e.length===0) return null;
+    return <p style={{ height: 50, background: 'blue' }}>头部</p>;
+  };
+  const _reset = () =>{
+    ref.current?.resetList();
+  };
   return (
     <div style={{ height: 400 }}>
       <ListPage
+        ref = {ref}
         header={_header}
         item={_item}
         query={_query}
         params={_params}
         queryCallback={_queryCallback}
-      >
-      </ListPage>
+      />
+      <Button block onClick={_reset} >重置</Button>
     </div>
   );
 };
