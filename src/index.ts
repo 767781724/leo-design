@@ -1,6 +1,6 @@
 export { default as Carousel } from './carousel';
 export { default as Progress } from './progress';
-export { default as Button } from './button';
+export { default as Button } from './button/loadingIcon';
 export { default as Spin } from './spin';
 export { default as Basicpage } from './basicpage';
 export { default as Message } from './message';
