@@ -23,7 +23,8 @@ $prefix:leo-modal;
   }
   &-body{
     position: relative;
-    overflow: hidden;  
+    z-index: $zindex-modal-body;
+    overflow: hidden;
   }
   &-enter {
     opacity: 0;

@@ -60,5 +60,6 @@ const Button: FC<IButtonProp> = (props) => {
 };
 
 Button.defaultProps={
+  type: 'default',
 };
 export default Button;

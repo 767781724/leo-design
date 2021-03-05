@@ -16,7 +16,7 @@ import { Progress } from 'leo-design';
  
 const App: FC = () => {
   return <div>
-    <Progress  percent={50} height={8} />
+    <Progress  percent={50} height={8} radius={10} />
   </div>
 };
  
