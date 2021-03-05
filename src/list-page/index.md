@@ -26,7 +26,7 @@ let start = 0;
 const App = () => {
   const ref = useRef<IListPageState>(null);
   const _query = (param) =>{
-    const { page } =param;console.log(page)
+    const { page } =param;
     return new Promise((resolve)=>{
       setTimeout(()=>{
         if (page>3) {
