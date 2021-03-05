@@ -1,3 +1,3 @@
 import '../../style/index.scss';
-import '../../message/style';
+import '../../message/style/index';
 import './index.scss';
