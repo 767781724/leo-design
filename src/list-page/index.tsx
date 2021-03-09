@@ -3,6 +3,7 @@ import { LoadingOutlined, ArrowDownOutlined, ArrowUpOutlined } from '@ant-design
 import { Message } from '../index';
 import { isPc } from '../_util/device';
 import { IListPageProp, IListPageState, IRefreshProp, IRefreshStatus } from './types';
+import Spin from '../spin';
 
 
 const pcEvent = {
@@ -16,6 +17,7 @@ const mobileEvent = {
   end: 'touchend',
 };
 const PREFIX = 'leo-listpage';
+const events = isPc() ? pcEvent : mobileEvent;
 /**
  * 分页
  * @param props
@@ -24,7 +26,7 @@ const PREFIX = 'leo-listpage';
  */
 function IListPage(props:IListPageProp, ref: React.ForwardedRef<IListPageState>) {
   const { header, footer, empty, noMore, params, queryCallback, query, item, refresh,
-    threshold, maxPullValue } =props;
+    threshold, maxPullValue, isRefresh, first } =props;
   const wrap = useRef<HTMLDivElement>(null);
   const body = useRef<HTMLDivElement>(null);
   const head = useRef<HTMLDivElement>(null);
@@ -33,6 +35,7 @@ function IListPage(props:IListPageProp, ref: React.ForwardedRef<IListPageState>)
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [data, setData] = useState<Array<any>>([]);
+  const [firstLoading, setFirstLoading] = useState(true);
   // off下拉箭头 on松开刷新 loading刷新
   const [pullStatus, setpullStatus] = useState<IRefreshStatus>('off');
   const page = useRef(1);
@@ -40,8 +43,7 @@ function IListPage(props:IListPageProp, ref: React.ForwardedRef<IListPageState>)
   const startY = useRef(0);
   const pullLength = useRef(0);
   const drag = useRef(false);
-  const isRefresh = useRef(false);
-  const events = isPc() ? pcEvent : mobileEvent;
+  const refreshBol = useRef(false);
   useImperativeHandle(ref, () => ({
     refreshData,
   }), [],
@@ -50,7 +52,7 @@ function IListPage(props:IListPageProp, ref: React.ForwardedRef<IListPageState>)
     if (body.current) {
       const _scroll = body.current.scrollTop;
       startY.current = isPc() ? e.clientY : e.touches[0].clientY;
-      if (isRefresh.current === false && loadCache.current===false && _scroll < 10) {
+      if (refreshBol.current === false && loadCache.current===false && _scroll < 10) {
         drag.current = true;
       }
       if (content.current && refreshView.current) {
@@ -96,18 +98,25 @@ function IListPage(props:IListPageProp, ref: React.ForwardedRef<IListPageState>)
     setHasMore(true);
     if (body.current && content.current && refreshView.current) {
       body.current.scrollTop=0;
-      isRefresh.current=true;
+      refreshBol.current=true;
       content.current.style.transform= `translateY(${threshold}px)`;
       refreshView.current.style.transform= `translateY(0%)`;
     }
   };
   useEffect(() => {
-    refreshData();
-    if (wrap.current) {
+    getData();
+    if (wrap.current && isRefresh) {
       wrap.current.addEventListener(events.start, touchStart);
       wrap.current.addEventListener(events.move, touchMove);
       wrap.current.addEventListener(events.end, touchEnd);
     }
+    return () => {
+      if (wrap.current && isRefresh) {
+        wrap.current.removeEventListener(events.start, touchStart);
+        wrap.current.removeEventListener(events.move, touchMove);
+        wrap.current.removeEventListener(events.end, touchEnd);
+      }
+    };
   }, []);
   useEffect(() => {
     if (hasMore && body.current) {
@@ -140,8 +149,9 @@ function IListPage(props:IListPageProp, ref: React.ForwardedRef<IListPageState>)
     }).finally(() => {
       setLoading(false);
       loadCache.current= false;
-      if (isRefresh && content.current && refreshView.current) {
-        isRefresh.current = false;
+      if (firstLoading) setFirstLoading(false);
+      if (refreshBol.current && content.current && refreshView.current) {
+        refreshBol.current = false;
         content.current.style.transform= 'translateY(0px)';
         refreshView.current.style.transform= `translateY(-100%)`;
       }
@@ -176,6 +186,7 @@ function IListPage(props:IListPageProp, ref: React.ForwardedRef<IListPageState>)
         {hasMore===false && data.length===0 && (empty ? empty : <EmptyView/>)}
         {hasMore===false && data.length > 0 &&(noMore ? noMore :<NoMoreView/>)}
       </div>
+      {firstLoading && (!!first ? first : (first === null? null : <FirstView/>))}
       <div className={`${PREFIX}-footer`} >
         {hasMore && loading && (footer ? footer : <FooterView />)}
       </div>
@@ -216,6 +227,13 @@ const FooterView = () => {
     </div>
   );
 };
+const FirstView = () =>{
+  return (
+    <div className={`${PREFIX}-first-default`}>
+      <Spin tip="loading…" mask isCard/>
+    </div>
+  );
+};
 const NoMoreView = () => {
   return (
     <div className={`${PREFIX}-noMore-default`}>
@@ -234,5 +252,6 @@ const ListPage=forwardRef<IListPageState, IListPageProp>(IListPage);
 ListPage.defaultProps = {
   threshold: 60,
   maxPullValue: 150,
+  isRefresh: true,
 };
 export default ListPage;

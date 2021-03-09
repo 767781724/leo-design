@@ -50,6 +50,15 @@ export interface IListPageProp {
    * @default 150
    */
   maxPullValue?: number
+  /**
+   * @description 是否需要刷新功能
+   * @default true
+   */
+  isRefresh?: boolean
+  /**
+   * @description 首次加载视图
+   */
+  first?: React.ReactNode | null
 }
 export interface IListPageQueryback {
   newData: Array<any>

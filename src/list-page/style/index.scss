@@ -13,6 +13,13 @@ $prefix: leo-listpage;
     width: 100%;
     
   }
+  &-first-default{
+    width:  100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
   &-body {
     width: 100%;
     overflow: hidden;
@@ -21,6 +28,7 @@ $prefix: leo-listpage;
     position: absolute;
     top: 0;
     bottom: 0;
+   
     &-refresh{
       position: absolute;
       // top: -100%;
