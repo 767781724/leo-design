@@ -13,6 +13,15 @@ export default defineConfig({
   history: {
     type: 'hash'
   },
+  themeConfig: {
+    hd: {
+      // umi-hd 的 750 高清方案（默认值）
+      // [{ mode: 'vw', options: [100, 750] }],
+      // 禁用高清方案
+
+      rules: [],
+    }
+  },
   extraBabelPlugins: [
     [
       'import',

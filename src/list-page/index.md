@@ -14,28 +14,30 @@ group:
 /**
  * background: '#f6f7f9'
  */
-
-import React, { FC, useRef } from 'react';
-import { ListPage, Button } from 'leo-design';
+import React, { useRef } from 'react';
+import { ListPage, Basicpage } from 'leo-design';
 import { IListPageState } from 'leo-design/lib/list-page';
- 
+
 type IDemo={
   name:string
 }
 let sub = 40;
 let start = 0;
+let num:any[] = [];
 const App = () => {
   const ref = useRef<IListPageState>(null);
-  const _query = (param: any) =>{
+  const _query = (param:any) =>{
     const { page } =param;
+    if (page === 1) {
+        sub = 40;
+        start = 0;
+        num= [];
+      }
+    num.push(page);
     return new Promise((resolve)=>{
       setTimeout(()=>{
         if (page>3) {
           resolve({ data: { list: [] } });
-        }
-        if (page === 1) {
-          sub = 40;
-          start = 0;
         }
         const list = [];
         for (let i = start; i < sub; i++) {
@@ -44,7 +46,7 @@ const App = () => {
         sub = sub + 40;
         start = start + 40;
         resolve({ data: { list } });
-      }, 500);
+      }, 2000);
     });
   };
   const _item = (e:IDemo, index:number) => {
@@ -54,30 +56,32 @@ const App = () => {
     return { page: page };
   };
   const _queryCallback = (oldData: any, newData: any) => {
-    return { newData: [...oldData, ...newData.data.list], more: oldData.length >100?false:true };
+    return { newData: [...oldData, ...newData.data.list], more: true };
   };
   const _header = (e:any) =>{
-    if (e.length===0) return null;
-    return <p style={{ height: 50, background: 'blue' }}>头部</p>;
+    // if (e.length===0) return null;
+    return <p style={{ height: 50, background: 'blue' }}>请求次数：{num.join(',')}</p>;
   };
-  const _reset = () =>{
-    ref.current?.resetList();
-  };
+  // const _reset = () =>{
+  //   ref.current?.resetList();
+  // };
   return (
-    <div style={{ height: 400 }}>
-      <ListPage
-        ref = {ref}
-        header={_header}
-        item={_item}
-        query={_query}
-        params={_params}
-        queryCallback={_queryCallback}
-      />
-      <Button block onClick={_reset} >重置</Button>
+    <div style={{height: '99vh'}}>
+      <Basicpage>
+        <ListPage
+          ref = {ref}
+          header={_header}
+          item={_item}
+          query={_query}
+          params={_params}
+          queryCallback={_queryCallback}
+        />
+        {/* <Button block onClick={_reset} >重置</Button> */}
+      </Basicpage>
     </div>
   );
 };
- 
+
 export default App;
 ```
 
