@@ -208,7 +208,7 @@ const RefreshView = ({ status }: IRefreshProp) =>{
       </React.Fragment>;
     } else {
       return <React.Fragment>
-        <span><LoadingOutlined/></span>
+        <span><LoadingOutlined /></span>
         <span>Refreshing</span>
       </React.Fragment>;
     }

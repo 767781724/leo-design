@@ -21,6 +21,10 @@ export interface IListPageProp {
    */
   noMore?: React.ReactNode
   /**
+   * @description 首次加载视图
+   */
+  first?: React.ReactNode | null
+  /**
    * @description 下拉刷新视图
    */
   refresh?: (e:IRefreshStatus) => React.ReactNode
@@ -55,10 +59,6 @@ export interface IListPageProp {
    * @default true
    */
   isRefresh?: boolean
-  /**
-   * @description 首次加载视图
-   */
-  first?: React.ReactNode | null
 }
 export interface IListPageQueryback {
   newData: Array<any>

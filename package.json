@@ -1,6 +1,6 @@
 {
   "name": "leo-design",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "React-based mobile style library",
   "main": "lib/index.js",
   "module": "es/index.js",

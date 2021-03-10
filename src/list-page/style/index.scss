@@ -41,6 +41,7 @@ $prefix: leo-listpage;
         text-align: center;
         line-height: 60px;
         font-size: $font-size-base;
+        color: $listpage-font-color;
         >span {
           &:first-child {
             width: 20px;
@@ -50,7 +51,6 @@ $prefix: leo-listpage;
           }
   
           &:last-child {
-            color: #666;
             font-size: 14px;
   
           }
@@ -78,6 +78,7 @@ $prefix: leo-listpage;
       background-color: $white;
       box-shadow: $box-shadow-base;
       animation: fadeIn .2s ease forwards;
+      color: $listpage-font-color;
       >span {
         &:first-child {
           width: 20px;
@@ -87,7 +88,6 @@ $prefix: leo-listpage;
         }
 
         &:last-child {
-          color: #666;
           font-size: 14px;
 
         }
@@ -99,7 +99,7 @@ $prefix: leo-listpage;
     height: 100%;
     position: relative;
     text-align: center;
-    color: #666;
+    color: $listpage-font-color;
     font-size: 14px;
     display: flex;
     align-items: center;
@@ -112,7 +112,7 @@ $prefix: leo-listpage;
     line-height: 40px;
     position: relative;
     text-align: center;
-    color: #666;
+    color: $listpage-font-color;
     font-size: 14px;
   }
 }

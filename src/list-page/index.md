@@ -58,25 +58,16 @@ const App = () => {
   const _queryCallback = (oldData: any, newData: any) => {
     return { newData: [...oldData, ...newData.data.list], more: true };
   };
-  const _header = (e:any) =>{
-    // if (e.length===0) return null;
-    return <p style={{ height: 50, background: 'blue' }}>请求次数：{num.join(',')}</p>;
-  };
-  // const _reset = () =>{
-  //   ref.current?.resetList();
-  // };
   return (
     <div style={{height: '99vh'}}>
       <Basicpage>
         <ListPage
           ref = {ref}
-          header={_header}
           item={_item}
           query={_query}
           params={_params}
           queryCallback={_queryCallback}
         />
-        {/* <Button block onClick={_reset} >重置</Button> */}
       </Basicpage>
     </div>
   );
